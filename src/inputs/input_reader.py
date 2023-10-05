@@ -8,9 +8,9 @@ class InputReader:
             if InputReader.text_validation(user_input):
                 return user_input
             else:
-                print("Don't use polish signs")
+                print("Don't use Polish signs")
 
     @staticmethod
     def text_validation(check_this_text):
-        pattern = re.match("^[A-Za-z0-9]+$", check_this_text)
+        pattern = re.match("[^ąĄćĆęĘłŁńŃóÓśŚżŻźŹ]+$", check_this_text)
         return pattern
