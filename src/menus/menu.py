@@ -38,8 +38,12 @@ class Menu:
                 filename = self.input_reader.get_user_input("Give filename: ")
                 self.file_handler.save_to_file(filename, self.text_dict)
             elif option == "3":
-                filename = self.input_reader.get_user_input("Chose file with text to encrypt: ")
-                self.file_handler.read_from_file(filename)
+                filename = self.input_reader.get_user_input("Chose file with text to decrypt: ")
+                decrypt_type = self.input_reader.get_user_input("ROT13 or ROT47: ").lower()
+                decrypt_this = self.file_handler.read_from_file(filename)
+                if decrypt_type in ('rot13', 'rot47'):
+                    decrypted_text = getattr(self, decrypt_type).decrypt(decrypt_this)
+                print(decrypted_text)
             elif option == "4":
                 for k, v in self.text_dict.items():
                     print(f"{k}: {v}")
