@@ -9,4 +9,9 @@ class FileHandler:
 
     def read_from_file(self, filename):
         with open(filename, "r") as file:
-            return file.read()
+            json_file_data_to_dict = json.load(file)
+            for key, value in json_file_data_to_dict.items():
+                value_we_need = value
+                break
+            return value_we_need
+
