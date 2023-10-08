@@ -47,7 +47,7 @@ class Menu:
                 decrypt_this = self.file_handler.read_from_file(filename)
                 if decrypt_type in ('rot13', 'rot47'):
                     decrypted_text = getattr(self, decrypt_type).decrypt(decrypt_this)
-                print(decrypted_text)
+                    print(decrypted_text)
             elif option == "4":
                 for k, v in self.text_dict.items():
                     print(f"{k}: {v}")
