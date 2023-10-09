@@ -12,6 +12,7 @@ class FileHandler:
             json_file_data_to_dict = json.load(file)
             for key, value in json_file_data_to_dict.items():
                 value_we_need = value
+                decrypt_type = key
                 break
-            return value_we_need
+            return decrypt_type, value_we_need
 
