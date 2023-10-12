@@ -25,7 +25,7 @@ class Menu:
 
             if option == "1":
                 text_to_encrypt = self.input_reader.get_user_input("Write your text: ")
-                rot_type = self.input_reader.get_user_input("ROT13 or ROT47: ").lower()
+                rot_type =self.input_reader.get_user_input("ROT13 or ROT47: ").lower()
                 if rot_type in ('rot13', 'rot47'):
                     self.encrypted_text = getattr(self, rot_type).encrypt(text_to_encrypt)
                 # if rot_type.lower() == "rot13":
