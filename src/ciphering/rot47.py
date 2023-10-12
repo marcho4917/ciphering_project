@@ -5,13 +5,9 @@ class Rot47(Rot):
     def __init__(self):
         super().__init__(47)
 
-    def encrypt(self, text):
-        result = ""
-        for i in range(len(text)):
-            j = ord(text[i])
-            if 33 <= j <= 126:
-                result += chr(33 + (j + (self.shift - 33)) % 94)
-            else:
-                result += text[i]
-        return result
-
+    def shift_char(self, char):
+        i = ord(char)
+        if 33 <= i <= 126:
+            result = chr(33 + (i + (self.shift - 33)) % 94)
+            return result
+        return char
