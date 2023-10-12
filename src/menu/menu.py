@@ -43,9 +43,9 @@ class Menu:
                     print("You have to encrypt text first!")
             elif option == "3":
                 filename = self.input_reader.get_user_input("Chose file with text to decrypt: ")
-                decrypt_type, decrypt_this = next(iter(self.file_handler.read_from_file(filename).items()))
-                decrypted_text = getattr(self, decrypt_type).decrypt(decrypt_this)
-                print(f"Your text after decrypt it is: {decrypted_text}")
+                for rot_type, encrypted_text in self.file_handler.read_from_file(filename).items():
+                    decrypted_text = getattr(self, rot_type).decrypt(encrypted_text)
+                    print(f"Your text after decrypt it is: {decrypted_text}")
             elif option == "4":
                 for k, v in self.text_dict.items():
                     print(f"{k}: {v}")
