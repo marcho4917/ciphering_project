@@ -46,29 +46,36 @@ def test_show_menu_and_input_2(mocker, get_menu_mock, set_show_menu_mock):
     set_show_menu_mock.assert_called_once()
 
 
-def test_show_menu_and_input_3(mocker, get_menu_mock):
-    menu_mock = get_menu_mock
-    tested_inputs = ["3", "file_name"]
+def test_show_menu_and_input_3(mocker, get_menu_mock, capsys):
+    tested_inputs = ["3", "file_name", "5"]
     mocker.patch("builtins.input", side_effect=tested_inputs)
+    mocker.patch("src.files.file_handler.FileHandler.read_from_file", return_value={"rot13": 'znzn'})
+    menu_mock = get_menu_mock
+    expected = (expected_menu +
+                "Your text after decrypt it is: mama\n" +
+                expected_menu +
+                "Goodbye!\n")
+
     menu_mock.show_menu()
 
-    with patch("builtins.open", mock_open(read_data="{rot13: znzn}")) as mock_file:
-        with open('file_name') as read_mock_file:
-            read_data = read_mock_file.read()
-        mock_file.assert_called_once_with('file_name')
-    assert read_data == "{rot13: znzn}"
-    mock_file.assert_called_with("file_name")
+    captured = capsys.readouterr()
+    assert captured.out == expected
 
 
 def test_show_menu_and_input_4(mocker, capsys, get_menu_mock):
+    tested_inputs = ["4", "5"]
     menu_mock = get_menu_mock
-    menu_mock.text_dict = {"rot13": "znzn", "rot47": ">2>2"}
-    mocker.patch('builtins.input', return_value="4")
-    menu_mock.show_menu()
+    mocker.patch.object(menu_mock, "text_dict", {"rot13": "znzn", "rot47": ">2>2"})
+    mocker.patch('builtins.input', side_effect=tested_inputs)
 
     expected = (expected_menu +
-                "rot13: znzn\n"
-                "rot47: >2>2\n")
+                'rot13: znzn\n'
+                'rot47: >2>2\n' +
+                expected_menu +
+                "Goodbye!\n")
+
+    menu_mock.show_menu()
+
     captured = capsys.readouterr()
     assert captured.out == expected
 
