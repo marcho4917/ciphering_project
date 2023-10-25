@@ -1,6 +1,3 @@
-import builtins
-from unittest.mock import patch, mock_open
-
 import pytest
 from src.menu import menu
 
